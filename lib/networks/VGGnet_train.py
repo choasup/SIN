@@ -112,7 +112,7 @@ class VGGnet_train(Network):
 	#     .fc(4096, name='fc6'))	
 
 	(self.feed('fc6', 'edges')
-	     .structure_inference_spmm(name='inference')
+	     .structure_inference_spmm(boxes=128, name='inference')
              .fc(n_classes, relu=False, name='cls_score')
              .softmax(name='cls_prob'))
          
