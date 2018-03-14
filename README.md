@@ -22,15 +22,13 @@ Structure Inference Net
 
 2. Build the Cython modules
   ```Shell
-  cd $FRCN_ROOT/lib
+  cd $SIN_ROOT/lib
   make
   ```
 
 ### Demo
 
 *After successfully completing [basic installation](#installation-sufficient-for-the-demo)*, you'll be ready to run the demo.
-
-Download model training on PASCAL VOC 2007  [[Google Drive]](https://drive.google.com/open?id=0ByuDEGFYmWsbZ0EzeUlHcGFIVWM) [[Dropbox]](https://www.dropbox.com/s/cfz3blmtmwj6bdh/VGGnet_fast_rcnn_iter_70000.ckpt?dl=0)
 
 To run the demo
 ```Shell
@@ -68,22 +66,22 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
 4. Create symlinks for the PASCAL VOC dataset
 
 	```Shell
-    cd $FRCN_ROOT/data
-    ln -s $VOCdevkit VOCdevkit2007
-    ```
+    	cd $SIN_ROOT/data
+    	ln -s $VOCdevkit VOCdevkit2007
+    	```
     
 5. Download pre-trained ImageNet models
 
    Download the pre-trained ImageNet models [[Google Drive]](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) [[Dropbox]](https://www.dropbox.com/s/po2kzdhdgl4ix55/VGG_imagenet.npy?dl=0)
    
    	```Shell
-    mv VGG_imagenet.npy $FRCN_ROOT/data/pretrain_model/VGG_imagenet.npy
-    ```
+    	mv VGG_imagenet.npy $FRCN_ROOT/data/pretrain_model/VGG_imagenet.npy
+    	```
 
 6. Run script to train and test model
 	```Shell
-	cd $FRCN_ROOT
-	./experiments/scripts/faster_rcnn_end2end.sh $DEVICE $DEVICE_ID VGG16 pascal_voc
+	cd $SIN_ROOT
+	./train.sh
 	```
   DEVICE is either cpu/gpu
 
