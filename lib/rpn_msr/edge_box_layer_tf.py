@@ -41,7 +41,7 @@ def edge_box_layer(rois, im_info):
     Assign anchors to ground-truth targets. Produces anchor classification
     labels and bounding-box regression targets.
     """
-    n_boxes = 128
+    n_boxes = len(rois) #128, 256
     # allow boxes to sit over the edge by a small amount
     #_allowed_border =  0
     # map of shape (..., H, W)
