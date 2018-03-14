@@ -1,0 +1,109 @@
+# --------------------------------------------------------
+# Faster R-CNN
+# Copyright (c) 2015 Microsoft
+# Licensed under The MIT License [see LICENSE for details]
+# Written by Ross Girshick and Sean Bell
+# --------------------------------------------------------
+
+import os
+import yaml
+from fast_rcnn.config import cfg
+import numpy as np
+import numpy.random as npr
+from generate_anchors import generate_anchors
+from utils.cython_bbox import bbox_overlaps
+from fast_rcnn.bbox_transform import bbox_transform
+import pdb
+import math
+import pycuda.autoinit
+import pycuda.driver as drv
+import numpy as np
+from pycuda.compiler import SourceModule
+
+DEBUG = False
+
+def cal_iou(box, truth):
+    xmin = max(box[1], truth[1])
+    ymin = max(box[2], truth[2])
+    xmax = min(box[3], truth[3])
+    ymax = min(box[4], truth[4])
+
+    w = xmax - xmin
+    h = ymax - ymin
+
+    if w < 0 or h < 0:
+        inter_s = 0
+    else:
+        inter_s = w * h
+
+    outer_s = (box[3] - box[1]) * (box[4] - box[2]) + (truth[3] - truth[1]) * (truth[4] - truth[2])
+    iou = inter_s * 1.0 / (outer_s - inter_s);
+    return iou
+
+def edge_box_layer(rois, im_info):
+    """
+    Assign anchors to ground-truth targets. Produces anchor classification
+    labels and bounding-box regression targets.
+    """
+    n_boxes = 128
+    # allow boxes to sit over the edge by a small amount
+    #_allowed_border =  0
+    # map of shape (..., H, W)
+    #height, width = rpn_cls_score.shape[1:3]
+    
+    #print ">>>>>>>>>>>>>>>>>>>>>>>>union_boxes"
+    #print ">>>>>>>>>>>>>>>>>>>>>>>>",len(rois) 
+    union_boxes = []
+    im_info = im_info[0]
+    #print im_info
+    mod = SourceModule("""
+    __global__ void multiply_them(float *dest, float *a, float *b) {
+    int g = blockIdx.x;
+    int i = threadIdx.x;
+    int n = 128;
+    //int j = threadIdx.y;
+
+    //int real_x = i;
+    //int real_y = j;
+
+    //if (real_y / 4 == 0) real_x = g;
+    //else real_x = i;
+    //real_y = real_y % 4;
+  
+    float cx1 = (a[g * 5 + 1] + a[g * 5 + 3]) / 2;
+    float cy1 = (a[g * 5 + 2] + a[g * 5 + 4]) / 2;
+    float w1 = (a[g * 5 + 3] - a[g * 5 + 1]);
+    float h1 = (a[g * 5 + 4] - a[g * 5 + 2]);
+    if (w1 < 0) w1 = 0;
+    if (h1 < 0) h1 = 0;
+    float s1 = w1 * h1;
+ 
+    float cx2 = (a[i * 5 + 1] + a[i * 5 + 3]) / 2;
+    float cy2 = (a[i * 5 + 2] + a[i * 5 + 4]) / 2;
+    float w2 = (a[i * 5 + 3] - a[i * 5 + 1]);
+    float h2 = (a[i * 5 + 4] - a[i * 5 + 2]);
+    if (w2 < 0) w2 = 0;
+    if (h2 < 0) h2 = 0;
+    float s2 = w2 * h2;
+  
+    dest[0 + i * 12 + g * n * 12] = w1 / (b[0] + 1);
+    dest[1 + i * 12 + g * n * 12] = h1 / (b[1] + 1);
+    dest[2 + i * 12 + g * n * 12] = s1 / (b[0] * b[1] + 1);
+    dest[3 + i * 12 + g * n * 12] = w2 / (b[0] + 1);
+    dest[4 + i * 12 + g * n * 12] = h2 / (b[1] + 1);
+    dest[5 + i * 12 + g * n * 12] = s2 / (b[0] * b[1] + 1);
+
+    dest[6 + i * 12 + g * n * 12] = (cx1 - cx2) / (w2 + 1);
+    dest[7 + i * 12 + g * n * 12] = (cy1 - cy2) / (h2 + 1);
+    dest[8 + i * 12 + g * n * 12] = (cx1 - cx2) * (cx1 - cx2) / (w2 * w2 + 1);
+    dest[9 + i * 12 + g * n * 12] = (cy1 - cy2) * (cy1 - cy2) / (h2 * h2 + 1);
+    dest[10 + i * 12 + g * n * 12] = log((w1 + 1) / (w2 + 1));
+    dest[11 + i * 12 + g * n * 12] = log((h1 + 1) / (h2 + 1));
+    }
+    """)
+    
+    multiply_them = mod.get_function("multiply_them")
+    edge_boxes = np.zeros((128 * 128, 12), dtype=np.float32)
+    multiply_them(drv.Out(edge_boxes), drv.In(rois), drv.In(im_info), block=(128, 1, 1), grid=(128, 1))    
+
+    return edge_boxes
