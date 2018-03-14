@@ -17,7 +17,7 @@ Structure Inference Net
   
   ```Shell
   # Make sure to clone with --recursive
-  git clone --recursive https://github.com/smallcorgi/Faster-RCNN_TF.git
+  git clone --recursive https://github.com/choasUp/SIN.git
   ```
 
 2. Build the Cython modules
