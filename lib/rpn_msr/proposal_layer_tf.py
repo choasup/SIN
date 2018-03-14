@@ -50,7 +50,7 @@ def proposal_layer(rpn_cls_prob_reshape,rpn_bbox_pred,im_info,cfg_key,_feat_stri
     if cfg_key == 'TEST':
 	post_nms_topN = 128
     if cfg_key == 'TRAIN':
-	post_nms_topN = 256
+    	post_nms_topN = 128
     nms_thresh    = cfg[cfg_key].RPN_NMS_THRESH
     #print nms_thresh
     min_size      = cfg[cfg_key].RPN_MIN_SIZE
