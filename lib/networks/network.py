@@ -340,10 +340,10 @@ class Network(object):
         
  	n_steps = 2
         n_boxes = 128
-        n_inputs = 4096
+        n_inputs = 2048 #edit D
 
-        n_hidden_o = 4096
-        n_hidden_e = 4096
+        n_hidden_o = 2048
+        n_hidden_e = 2048
 	
 
         ofe = input[1]
@@ -392,11 +392,6 @@ class Network(object):
 		with tf.variable_scope('e_gru', reuse=(t!=0)):
                         ho2, hi2 = E_cell(inputs = einput, state = hi)
 		
-		
-		#hi = tf.add(hi1, hi2) * tf.random_uniform(1, 0, 1, tf.float32);
-		#hi = tf.concat([hi1, hi2], 1)
-		#hi = tf.matmul(hi, v)		
-		
 		#maxpooling
 		#hi = tf.maximum(hi1, hi2)
 
@@ -405,37 +400,5 @@ class Network(object):
 		hi = tf.reshape(hi, [2, n_boxes, n_inputs])
 		hi = tf.reduce_mean(hi, 0)
 		
-		#row_ho = tf.concat(n_boxes * [ho], 0)
-                #row_ho = tf.reshape(row_ho, [n_boxes, n_boxes, n_inputs])
-		
-		#m_o = tf.reshape(tf.reduce_sum(tf.multiply(tf.sigmoid(tf.reshape(tf.matmul(he, weights['v1']),[n_boxes, n_boxes, n_hidden_o])), row_ho), reduction_indices = 1), [n_boxes, n_inputs])
-		
-#====================================================================================================#
-		#row_ho = tf.concat(n_boxes * [ho], 0) #
-                #row_ho = tf.reshape(row_ho, [n_boxes, n_boxes, n_inputs]) #
-                #col_ho = tf.transpose(row_ho, [1, 0, 2]) #
-		#row_ho_v = tf.reshape(row_ho, [n_boxes * n_boxes, n_inputs])
-		#col_ho_v = tf.reshape(col_ho, [n_boxes * n_boxes, n_inputs])		
-
-		#m_o = tf.reshape(tf.reduce_mean(tf.multiply(tf.sigmoid(tf.reshape(tf.matmul(he, weights['v1']),[n_boxes, n_boxes, n_hidden_o])), row_ho), reduction_indices = 1), [n_boxes, n_inputs])
-		#m_e = tf.multiply(tf.sigmoid(tf.matmul(tf.concat([col_ho_v, row_ho_v], 1), weights['w1'])), he)
-               	#gate = tf.random_uniform([1], minval=0, maxval=1, seed=1234);
-		
-		#oinput = tf.add(tf.multiply(tf.sigmoid(tf.matmul(tf.concat([fs, hoi], 1), s1)), fs), hoi)
-		#oinput = tf.multiply(tf.sigmoid(tf.matmul(tf.concat([fs, hoi], 1), s1)), hoi)
-
-		#new_he = tf.add(m_e, he)
-		#new_ho = tf.add(m_o, ho)
-		#new_ho = tf.add(new_ho, m_s)
-		
-		#====================================================================================================#
-		#print m_e
-		#print m_o
-		
-		#new_ho = tf.add(m_o, ho)
-		#einput = he
-		#einput = new_he
-		#oinput = new_ho	
-	
 	return hi
 
