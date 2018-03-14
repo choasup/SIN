@@ -49,6 +49,8 @@ def proposal_layer(rpn_cls_prob_reshape,rpn_bbox_pred,im_info,cfg_key,_feat_stri
     post_nms_topN = cfg[cfg_key].RPN_POST_NMS_TOP_N
     if cfg_key == 'TEST':
 	post_nms_topN = 128
+    if cfg_key == 'TRAIN':
+	post_nms_topN = 256
     nms_thresh    = cfg[cfg_key].RPN_NMS_THRESH
     #print nms_thresh
     min_size      = cfg[cfg_key].RPN_MIN_SIZE
@@ -130,7 +132,7 @@ def proposal_layer(rpn_cls_prob_reshape,rpn_bbox_pred,im_info,cfg_key,_feat_stri
     keep = nms(np.hstack((proposals, scores)), nms_thresh)
     #====================================================================================#
     delta = 0.05
-    while (len(keep)) < 128:
+    while (len(keep)) < post_nms_topN:
 	keep = nms(np.hstack((proposals, scores)), nms_thresh + delta)
 	delta = delta + 0.05
     #print len(keep)
