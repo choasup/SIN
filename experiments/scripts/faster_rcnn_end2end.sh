@@ -28,7 +28,7 @@ EXTRA_ARGS_SLUG=${EXTRA_ARGS// /_}
 
 case $DATASET in
   pascal_voc)
-    TRAIN_IMDB="voc_2007_trainval"
+    TRAIN_IMDB="voc_2007_trainval+voc_2012_trainval"
     TEST_IMDB="voc_2007_test"
     PT_DIR="pascal_voc"
     ITERS=80000
