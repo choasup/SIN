@@ -332,14 +332,14 @@ class Network(object):
 
     #======================= my edit ================================
     @layer
-    def structure_inference_spmm(self, input, name):
+    def structure_inference_spmm(self, input, boxes, name):
 	print "================ structural inference ==============="
         print input
 	
   	#ofo, ofs = tf.split(input, [n_boxes, 1])               
         
  	n_steps = 2
-        n_boxes = 128
+        n_boxes = boxes #train 128, test 256
         n_inputs = 2048 #edit D
 
         n_hidden_o = 2048
