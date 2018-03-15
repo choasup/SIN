@@ -3,7 +3,7 @@ Structure Inference Net: Object Detection Using Scene-level Context and Instance
 
 ### Requirements: software
 
-1. Requirements for Tensorflow (see: [Tensorflow](https://www.tensorflow.org/))
+1. Requirements for Tensorflow 1.3.0 (see: [Tensorflow](https://www.tensorflow.org/))
 
 2. Python packages you might not have: `cython`, `python-opencv`, `easydict`
 
