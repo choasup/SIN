@@ -67,9 +67,10 @@ Wait ...
     mv VGG_imagenet.npy $SIN_ROOT/data/pretrain_model/VGG_imagenet.npy
     ```
 
-6. Run script to train and test model
+6. Set your GPU id, then run script to train and test model
 	```Shell
 	cd $SIN_ROOT
+	export CUDA_VISIBLE_DEVICSE=0
 	./train.sh
 	```
   DEVICE is either cpu/gpu
