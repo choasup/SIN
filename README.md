@@ -26,11 +26,8 @@ Structure Inference Net: Object Detection Using Scene-level Context and Instance
 
 *After successfully completing [basic installation](#installation-sufficient-for-the-demo)*, you'll be ready to run the demo.
 
-To run the demo
-```Shell
-cd $FRCN_ROOT
-python ./tools/demo.py --model model_path
-```
+wait ...
+
 The demo performs detection using a VGG16 network trained for detection on PASCAL VOC 2007.
 
 ### Training Model
