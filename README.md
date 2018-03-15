@@ -26,9 +26,7 @@ Structure Inference Net: Object Detection Using Scene-level Context and Instance
 
 *After successfully completing [basic installation](#installation-sufficient-for-the-demo)*, you'll be ready to run the demo.
 
-wait ...
-
-The demo performs detection using a VGG16 network trained for detection on PASCAL VOC 2007.
+Wait ...
 
 ### Training Model
 1. Download the training, validation, test data and VOCdevkit
