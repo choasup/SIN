@@ -58,7 +58,7 @@ Wait ...
 
     ```Shell
     cd $SIN_ROOT/data
-    ln -s $VOCdevkit VOCdevkit2007
+    ln -s $VOCdevkit VOCdevkit
     ```
     
 5. Download the pre-trained ImageNet models [[Google Drive]](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) [[Dropbox]](https://www.dropbox.com/s/po2kzdhdgl4ix55/VGG_imagenet.npy?dl=0)
