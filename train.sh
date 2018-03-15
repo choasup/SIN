@@ -1,2 +1,2 @@
-./experiments/scripts/faster_rcnn_end2end.sh gpu 2 VGG16 pascal_voc all.07trainval 2>&1 | tee trainlog/train.log.all.07tainval
+./experiments/scripts/faster_rcnn_end2end.sh gpu 0 VGG16 pascal_voc tenboard.07++12 2>&1 | tee train.log.07++12
 
