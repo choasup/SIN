@@ -9,7 +9,7 @@ Structure Inference Net: Object Detection Using Scene-level Context and Instance
 
 ### Installation (sufficient for the demo)
 
-1. Clone the Faster R-CNN repository
+1. Clone the SIN repository
   
   ```Shell
   # Make sure to clone with --recursive
