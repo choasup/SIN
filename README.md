@@ -73,8 +73,7 @@ Wait ...
 	export CUDA_VISIBLE_DEVICSE=0
 	./train.sh
 	```
-  DEVICE is either cpu/gpu
-
+	
 ### The result of testing on PASCAL VOC 2007 
 
 ### References
