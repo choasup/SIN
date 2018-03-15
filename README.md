@@ -64,7 +64,7 @@ Wait ...
 5. Download the pre-trained ImageNet models [[Google Drive]](https://drive.google.com/open?id=0ByuDEGFYmWsbNVF5eExySUtMZmM) [[Dropbox]](https://www.dropbox.com/s/po2kzdhdgl4ix55/VGG_imagenet.npy?dl=0)
    
    ```Shell
-    mv VGG_imagenet.npy $FRCN_ROOT/data/pretrain_model/VGG_imagenet.npy
+    mv VGG_imagenet.npy $SIN_ROOT/data/pretrain_model/VGG_imagenet.npy
     ```
 
 6. Run script to train and test model
