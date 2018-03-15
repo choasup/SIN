@@ -1,5 +1,5 @@
 # SIN
-Structure Inference Net
+Structure Inference Net: Object Detection Using Scene-level Context and Instance-level Relationships
 
 ### Requirements: software
 
