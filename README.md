@@ -7,10 +7,6 @@ Structure Inference Net: Object Detection Using Scene-level Context and Instance
 
 2. Python packages you might not have: `cython`, `python-opencv`, `easydict`
 
-### Requirements: hardware
-
-1. For training the end-to-end version of Faster R-CNN with VGG16, 3G of GPU memory is sufficient (using CUDNN)
-
 ### Installation (sufficient for the demo)
 
 1. Clone the Faster R-CNN repository
@@ -89,3 +85,5 @@ The demo performs detection using a VGG16 network trained for detection on PASCA
 [Faster R-CNN caffe version](https://github.com/rbgirshick/py-faster-rcnn)
 
 [Faster R-CNN tf version](https://github.com/smallcorgi/Faster-RCNN_TF)
+
+### Citation
