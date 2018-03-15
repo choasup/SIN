@@ -1,5 +1,5 @@
 # SIN
-Structure Inference Net: Object Detection Using Scene-level Context and Instance-level Relationships
+Structure Inference Net: Object Detection Using Scene-level Context and Instance-level Relationships. In CVPR 2018.
 
 ### Requirements: software
 
