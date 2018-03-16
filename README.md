@@ -73,8 +73,14 @@ Wait ...
 	export CUDA_VISIBLE_DEVICSE=0
 	./train.sh
 	```
-	
+
+7. Test your dataset
+	```Shell
+	./test_all.sh
+	```
+
 ### The result of testing on PASCAL VOC 2007 
+
 
 ### References
 [Faster R-CNN caffe version](https://github.com/rbgirshick/py-faster-rcnn)
