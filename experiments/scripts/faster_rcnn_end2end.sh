@@ -31,7 +31,7 @@ case $DATASET in
     TRAIN_IMDB="voc_2007_trainval+voc_2012_trainval"
     TEST_IMDB="voc_2007_test"
     PT_DIR="pascal_voc"
-    ITERS=80000
+    ITERS=130000
     ;;
   coco)
     # This is a very long and slow training schedule
@@ -67,9 +67,9 @@ set -x
 
 echo $NET_FINAL
 
-#time python ./tools/test_net.py --device ${DEV} --device_id ${DEV_ID} \
-#  --weights ${NET_FINAL} \
-#  --imdb ${TEST_IMDB} \
-#  --cfg experiments/cfgs/faster_rcnn_end2end.yml \
-#  --network VGGnet_test \
-#  ${EXTRA_ARGS}
+time python ./tools/test_net.py --device ${DEV} --device_id ${DEV_ID} \
+  --weights ${NET_FINAL} \
+  --imdb ${TEST_IMDB} \
+  --cfg experiments/cfgs/faster_rcnn_end2end.yml \
+  --network VGGnet_test \
+  ${EXTRA_ARGS}
