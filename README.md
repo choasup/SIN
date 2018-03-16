@@ -67,12 +67,12 @@ Wait ...
     mv VGG_imagenet.npy $SIN_ROOT/data/pretrain_model/VGG_imagenet.npy
     ```
 
-6.[optional]Set learning rate & max iter
+6. [optional] Set learning rate and max iter
 
 	```Shell
-	vim experiments/scripts/faster_rcnn_end2end.sh #ITERS
-	vim lib/fast/config.py #LR
-	cd lib & make #if you edit the code, make best
+   	vim experiments/scripts/faster_rcnn_end2end.sh 		# ITERS
+	vim lib/fast/config.py 					# LR
+	cd lib & make 						# if you edit the code, make best
 	```
 
 7. Set your GPU id, then run script to train and test model
