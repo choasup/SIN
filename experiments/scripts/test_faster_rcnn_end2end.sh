@@ -62,10 +62,8 @@ set +x
 NET_FINAL=`grep -B 1 "done solving" ${LOG} | grep "Wrote snapshot" | awk '{print $4}'`
 set -x
 
-#NET_FINAL="./output/faster_rcnn_end2end/voc_2007_trainval/VGGnet_fast_rcnn_iter_80000.ckpt"
-NET_FINAL="./help/final.VGGnet_fast_rcnn_iter_130k.ckpt"
-#NET_FINAL="./output/faster_rcnn_end2end/coco_2014_train/VGGnet_fast_rcnn_iter_490000.ckpt"
-#NET_FINAL="./VGGnet_fast_rcnn_iter_70000.ckpt"
+# --- eidt NET_FINAL ----
+NET_FINAL="./output/faster_rcnn_end2end/voc_2007_trainval+voc_2012_trainval/VGGnet_fast_rcnn_iter_130000.ckpt"
 
 time python ./tools/test_net.py --device ${DEV} --device_id ${DEV_ID} \
   --weights ${NET_FINAL} \
@@ -74,19 +72,3 @@ time python ./tools/test_net.py --device ${DEV} --device_id ${DEV_ID} \
   --network VGGnet_test \
   --comp \
   ${EXTRA_ARGS}
-
-
-#for ((i=16;i>=1;i--));
-#do
-#NET_FINAL="./output/faster_rcnn_end2end/voc_2007_trainval/VGGnet_fast_rcnn_iter_";
-#NET_FINAL+=$(expr $i \* 5000)
-#NET_FINAL+=".ckpt"
-
-#time python ./tools/test_net.py --device ${DEV} --device_id ${DEV_ID} \
-#  --weights ${NET_FINAL} \
-#  --imdb ${TEST_IMDB} \
-#  --cfg experiments/cfgs/faster_rcnn_end2end.yml \
-#  --network VGGnet_test \
-#  --comp \
-#  ${EXTRA_ARGS}
-#done
