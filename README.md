@@ -88,8 +88,30 @@ Wait ...
 	./test_all.sh
 	```
 
-### The result of testing on PASCAL VOC 2007 
-
+### The result of testing on PASCAL VOC 2007 (VGG net)
+```
+AP for aeroplane = 0.7853
+AP for bicycle = 0.8045
+AP for bird = 0.7456
+AP for boat = 0.6657
+AP for bottle = 0.6144
+AP for bus = 0.8424
+AP for car = 0.8663
+AP for cat = 0.8894
+AP for chair = 0.5803
+AP for cow = 0.8466
+AP for diningtable = 0.7171
+AP for dog = 0.8578
+AP for horse = 0.8626
+AP for motorbike = 0.7802
+AP for person = 0.7857
+AP for pottedplant = 0.4869
+AP for sheep = 0.7599
+AP for sofa = 0.7351
+AP for train = 0.8199
+AP for tvmonitor = 0.7683
+Mean AP = 0.7607
+```
 
 ### References
 [Faster R-CNN caffe version](https://github.com/rbgirshick/py-faster-rcnn)
