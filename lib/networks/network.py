@@ -340,10 +340,10 @@ class Network(object):
         
  	n_steps = 2
         n_boxes = boxes #train 128, test 256
-        n_inputs = 2048 #edit D
+        n_inputs = 4096 #edit D
 
-        n_hidden_o = 2048
-        n_hidden_e = 2048
+        n_hidden_o = 4096
+        n_hidden_e = 4096
 	
 
         ofe = input[1]
