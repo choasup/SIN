@@ -106,7 +106,7 @@ class VGGnet_train(Network):
 	     	
 	(self.feed('pool_5','whole_pool')
 	     .concat(axis=0, name='concat')
-             .fc(2048, name='fc6'))
+             .fc(4096, name='fc6'))
 
 	#(self.feed('pool_5')
 	#     .fc(4096, name='fc6'))	
