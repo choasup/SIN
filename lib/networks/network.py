@@ -360,6 +360,7 @@ class Network(object):
 	u = tf.get_variable('u', [12, 1], initializer = tf.contrib.layers.xavier_initializer())
 	W = tf.get_variable('CW', [n_inputs, n_inputs], initializer = tf.orthogonal_initializer())
 	#v = tf.get_variable('v', [n_inputs * 2, n_inputs], initializer = tf.contrib.layers.xavier_initializer())	
+    Concat_w = tf.get_variable('Concat_w', [n_inputs * 2, 1], initializer = tf.contrib.layers.xavier_initializer())
 
         E_cell = rnn.GRUCell(n_hidden_e)
         O_cell = rnn.GRUCell(n_hidden_o)
@@ -373,15 +374,26 @@ class Network(object):
                 #        _, he = E_cell(inputs= einput, state = he)
 		
 		X = tf.concat(n_boxes * [hi], 0)
-       	 	X = tf.reshape(X, [n_boxes * n_boxes, n_inputs])
-		Y = hi
-		VE = tf.nn.tanh(tf.matmul(tf.matmul(Y, W), tf.transpose(Y)))
+        	X = tf.reshape(X, [n_boxes * n_boxes, n_inputs])
+            	Y = hi  # Y = fo: 128 * 4096
+            	
+		# VE form 1:
+            	# VE = tf.nn.tanh(tf.matmul(tf.matmul(Y, W), tf.transpose(Y))) # Y*W*Y_T = (128 * 4096) * (4096 * 4096) * (4096 * 128) = 128 * 128
 		
+        	# VE form 2:
+        	Y1 = tf.concat(n_boxes * [Y], 1)
+        	Y1 = tf.reshape(Y1, [n_boxes * n_boxes, n_inputs])
+
+		Y2 = tf.concat(n_boxes * [Y], 0)
+		Y2 = tf.reshape(Y2, [n_boxes * n_boxes, n_inputs])
+    
+    		VE = tf.reshape(tf.matmul(tf.concat([[Y1, Y2], 1), Concat_W), [n_boxes, n_boxes])
+        
 		E = tf.multiply(PE, VE)
-		Z = tf.nn.softmax(E)
-		X = tf.reshape(X, [n_boxes, n_boxes, n_inputs])
-		M = tf.reshape(Z, [n_boxes, n_boxes, 1]) * X
-		M = tf.reduce_max(M, 1)
+        	Z = tf.nn.softmax(E)    # edge relationships
+                X = tf.reshape(X, [n_boxes, n_boxes, n_inputs]) # Nodes
+        	M = tf.reshape(Z, [n_boxes, n_boxes, 1]) * X # messages
+            	M = tf.reduce_max(M, 1) # intergated message
 		
 		me_max = tf.reshape(M, [n_boxes, 1, n_inputs])
 		einput = me_max[:, 0, :]
