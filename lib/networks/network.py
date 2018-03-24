@@ -387,7 +387,7 @@ class Network(object):
 		Y2 = tf.concat(n_boxes * [Y], 0)
 		Y2 = tf.reshape(Y2, [n_boxes * n_boxes, n_inputs])
     
-    		VE = tf.reshape(tf.matmul(tf.concat([[Y1, Y2], 1), Concat_W), [n_boxes, n_boxes])
+    		VE = tf.nn.tanh(tf.reshape(tf.matmul(tf.concat([Y1, Y2], 1), Concat_W), [n_boxes, n_boxes]))
         
 		E = tf.multiply(PE, VE)
         	Z = tf.nn.softmax(E)    # edge relationships
