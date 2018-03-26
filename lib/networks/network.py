@@ -360,7 +360,7 @@ class Network(object):
 	u = tf.get_variable('u', [12, 1], initializer = tf.contrib.layers.xavier_initializer())
 	W = tf.get_variable('CW', [n_inputs, n_inputs], initializer = tf.orthogonal_initializer())
 	#v = tf.get_variable('v', [n_inputs * 2, n_inputs], initializer = tf.contrib.layers.xavier_initializer())	
-    Concat_w = tf.get_variable('Concat_w', [n_inputs * 2, 1], initializer = tf.contrib.layers.xavier_initializer())
+    	Concat_w = tf.get_variable('Concat_w', [n_inputs * 2, 1], initializer = tf.contrib.layers.xavier_initializer())
 
         E_cell = rnn.GRUCell(n_hidden_e)
         O_cell = rnn.GRUCell(n_hidden_o)
