@@ -119,3 +119,4 @@ Mean AP = 0.7607
 [Faster R-CNN tf version](https://github.com/smallcorgi/Faster-RCNN_TF)
 
 ### Citation
+Yong Liu, Ruiping Wang, Shiguang Shan, and Xilin Chen. Structure Inference Net: Object Detection Using Scene-level Context and Instance-level Relationships. In CVPR 2018.
